@@ -170,3 +170,5 @@ datasets/debug_dataset/bridge_dataset/1.0.0/action_*
 examples/LIBERO/
 examples/envs/act/
 examples/example_sim_data/
+.DS_Store
+examples/libero/
