@@ -14,6 +14,11 @@ If you are running this on a head-less server, start a virtual display:
 To run this script, run:
     cd examples
     python3 03_eval_finetuned.py --finetuned_path=<path_to_finetuned_aloha_checkpoint>
+
+
+    
+python3 examples/03_eval_finetuned.py --finetuned_path=/home/malak.mansour/Downloads/ICL/octo/examples/libero/libero_object/libero_object_no_noops/finetuned_chkpt
+python3 examples/03_eval_finetuned.py --finetuned_path=examples/libero/libero_object/libero_object_no_noops/finetuned_chkpt
 """
 from functools import partial
 import sys
@@ -24,7 +29,7 @@ import jax
 import numpy as np
 import wandb
 
-sys.path.append("path/to/your/act")
+sys.path.append("envs/act")
 
 # keep this to register ALOHA sim env
 from envs.aloha_sim_env import AlohaGymEnv  # noqa

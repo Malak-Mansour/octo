@@ -7,8 +7,7 @@ import jax.numpy as jnp
 import numpy as np
 
 # need to put https://github.com/tonyzhaozh/act in your PATH for this import to work
-from sim_env import BOX_POSE, make_sim_env
-
+from .act.sim_env import BOX_POSE, make_sim_env
 
 class AlohaGymEnv(gym.Env):
     def __init__(

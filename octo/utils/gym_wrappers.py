@@ -9,6 +9,26 @@ import numpy as np
 import tensorflow as tf
 
 
+
+
+import math
+
+def quat2axisangle(quat):
+    if quat[3] > 1.0:
+        quat[3] = 1.0
+    elif quat[3] < -1.0:
+        quat[3] = -1.0
+
+    den = np.sqrt(1.0 - quat[3] * quat[3])
+    if math.isclose(den, 0.0):
+        return np.zeros(3)
+
+    return (quat[:3] * 2.0 * math.acos(quat[3])) / den
+
+
+
+
+
 def stack_and_pad(history: deque, num_obs: int):
     """
     Converts a list of observation dictionaries (`history`) into a single observation dictionary
@@ -296,11 +316,24 @@ class NormalizeProprio(gym.ObservationWrapper):
             data,
         )
 
+
+
     def observation(self, obs):
         if "proprio" in self.action_proprio_metadata:
             obs["proprio"] = self.normalize(
-                obs["proprio"], self.action_proprio_metadata["proprio"]
+            #     # obs["proprio"], self.action_proprio_metadata["proprio"]
+            #     obs["robot0_proprio-state"], self.action_proprio_metadata["proprio"]
+                np.concatenate([
+                    obs["robot0_eef_pos"],
+                    quat2axisangle(obs["robot0_eef_quat"]),
+                    obs["robot0_gripper_qpos"]
+                ]),
+                self.action_proprio_metadata["proprio"]
             )
+
         else:
             assert "proprio" not in obs, "Cannot normalize proprio without metadata."
         return obs
+    
+
+
