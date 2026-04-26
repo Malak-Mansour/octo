@@ -172,3 +172,5 @@ examples/envs/act/
 examples/example_sim_data/
 .DS_Store
 examples/libero/
+.DS_Store
+examples/libero/
